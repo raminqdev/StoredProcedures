@@ -1,0 +1,18 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataAccess.EFModels
+{
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public int Quantity { get; set; }
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal UnitePrice { get; set; }
+        public string Description { get; set; }
+        public bool Enabled { get; set; }
+        public int? StorageId { get; set; }
+        public Storage Storage { get; set; }
+    }
+}
