@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iX7yhchtGpWBm+Ov/BhNT0WZVUAkhHP0F0F2TLgGUPHI+yL6sWl/YrkNKqZgFVXxt3FidQbDWp8g/BqU91BCSA==",
+  "dgSpecHash": "eFwva05RxvhhweyIDGjS/cpGx4SZu3JSpjU1EPHcpEmquw6dTeXeRv4ZVk5MQvTIykMRbVUsHasMNQrGgb5xcQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
+  "projectFilePath": "C:\\Users\\Ramin\\Source\\StoredProcedures\\DataAccess.Generator\\Persistence.Generator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ramin\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Ramin\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

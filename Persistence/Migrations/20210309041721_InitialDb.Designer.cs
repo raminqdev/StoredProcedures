@@ -4,14 +4,16 @@ using DataAccess.EFModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210309041721_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("DataAccess.EFModels.Product", b =>
+            modelBuilder.Entity("Persistence.EFModels.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +56,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("DataAccess.EFModels.Storage", b =>
+            modelBuilder.Entity("Persistence.EFModels.Storage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,16 +83,16 @@ namespace DataAccess.Migrations
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("DataAccess.EFModels.Product", b =>
+            modelBuilder.Entity("Persistence.EFModels.Product", b =>
                 {
-                    b.HasOne("DataAccess.EFModels.Storage", "Storage")
+                    b.HasOne("Persistence.EFModels.Storage", "Storage")
                         .WithMany("Products")
                         .HasForeignKey("StorageId");
 
                     b.Navigation("Storage");
                 });
 
-            modelBuilder.Entity("DataAccess.EFModels.Storage", b =>
+            modelBuilder.Entity("Persistence.EFModels.Storage", b =>
                 {
                     b.Navigation("Products");
                 });

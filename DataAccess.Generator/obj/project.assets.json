@@ -460,11 +460,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
-      "projectName": "Generator",
-      "projectPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
+      "projectUniqueName": "C:\\Users\\Ramin\\Source\\StoredProcedures\\DataAccess.Generator\\Persistence.Generator.csproj",
+      "projectName": "Persistence.Generator",
+      "projectPath": "C:\\Users\\Ramin\\Source\\StoredProcedures\\DataAccess.Generator\\Persistence.Generator.csproj",
       "packagesPath": "C:\\Users\\Ramin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\obj\\",
+      "outputPath": "C:\\Users\\Ramin\\Source\\StoredProcedures\\DataAccess.Generator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

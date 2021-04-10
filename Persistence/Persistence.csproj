@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>DataAccess</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess.Generator\Generator.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
 
@@ -25,6 +22,10 @@
     <Reference Include="AspNetCore.Lib">
       <HintPath>..\..\AspNetCore.Lib.V3.1.9\AspNetCore.Lib\bin\Debug\netcoreapp3.1\AspNetCore.Lib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.Generator\Persistence.Generator.csproj" />
   </ItemGroup>
 
 </Project>

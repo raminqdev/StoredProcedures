@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Generator.Helpers
+namespace Persistence.Generator.Helpers
 {
     public interface IBaseDbProcedure
     {

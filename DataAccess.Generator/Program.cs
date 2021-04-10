@@ -1,11 +1,11 @@
-using Generator.Helpers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using Persistence.Generator.Helpers;
 
-namespace Generator
+namespace Persistence.Generator
 {
     class Program
     {
@@ -36,11 +36,11 @@ namespace Generator
             code.AppendLine("using System.Data;");
             code.AppendLine("using System.Data.SqlClient;");
             code.AppendLine("using System.Threading.Tasks;");
-            code.AppendLine("using Generator.Helpers;");
+            code.AppendLine("using Persistence.Generator.Helpers;");
             code.AppendLine("");
-            code.AppendLine("namespace DataAccess");
+            code.AppendLine("namespace Persistence");
             code.AppendLine("{");
-            code.AppendLine("    public partial interface IDbProcedureService: Generator.Helpers.IBaseDbProcedure");
+            code.AppendLine("    public partial interface IDbProcedureService: Persistence.Generator.Helpers.IBaseDbProcedure");
             code.AppendLine("    {");
 
             for (int i = 0; i < procedures.OrderBy(e => e.Name).Count(); i++)
@@ -61,7 +61,7 @@ namespace Generator
             code.AppendLine("}");
 
             var path = Path.Combine(Directory.GetParent(CurrentDirectory).FullName,
-                "DataAccess/IDbProcedureService.cs");
+                "Persistence/IDbProcedureService.cs");
             File.WriteAllText(path, code.ToString());
         }
 
@@ -73,16 +73,16 @@ namespace Generator
             code.AppendLine("using System.Data;");
             code.AppendLine("using System.Data.SqlClient;");
             code.AppendLine("using System.Threading.Tasks;");
-            code.AppendLine("using Generator.Helpers;");
+            code.AppendLine("using Persistence.Generator.Helpers;");
             code.AppendLine("using AspNetCore.Lib;");
             code.AppendLine("using AspNetCore.Lib.Attributes;");
             code.AppendLine("using AspNetCore.Lib.Enums;");
             code.AppendLine("");
-            code.AppendLine("namespace DataAccess");
+            code.AppendLine("namespace Persistence");
             code.AppendLine("{");
             //code.AppendLine("    [TypeLifeTime(TypeLifetime.Singleton)]");
             code.AppendLine(
-                "    partial class DbProcedureService : Generator.Helpers.BaseDbProcedure, IDbProcedureService");
+                "    partial class DbProcedureService : Persistence.Generator.Helpers.BaseDbProcedure, IDbProcedureService");
             code.AppendLine("    {");
             code.AppendLine(
                 "        public DbProcedureService(AspNetCore.Lib.Configurations.IAppSettings appSettings)");
@@ -136,7 +136,7 @@ namespace Generator
 
             code.AppendLine("    }");
             code.AppendLine("}");
-            var path = Path.Combine(Directory.GetParent(CurrentDirectory).FullName, "DataAccess/DbProcedureService.cs");
+            var path = Path.Combine(Directory.GetParent(CurrentDirectory).FullName, "Persistence/DbProcedureService.cs");
             File.WriteAllText(path, code.ToString());
         }
 

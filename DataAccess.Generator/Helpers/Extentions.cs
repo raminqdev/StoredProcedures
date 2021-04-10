@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace Generator.Helpers
+namespace Persistence.Generator.Helpers
 {
     internal static class Extentions
     {

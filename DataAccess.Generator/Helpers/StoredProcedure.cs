@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Generator.Helpers
+namespace Persistence.Generator.Helpers
 {
     public class StoredProcedure
     {

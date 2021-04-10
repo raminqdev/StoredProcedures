@@ -2,11 +2,11 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Generator.Helpers;
+using Persistence.Generator.Helpers;
 
-namespace DataAccess
+namespace Persistence
 {
-    public partial interface IDbProcedureService: Generator.Helpers.IBaseDbProcedure
+    public partial interface IDbProcedureService: Persistence.Generator.Helpers.IBaseDbProcedure
     {
 
         #region GetAllProducts

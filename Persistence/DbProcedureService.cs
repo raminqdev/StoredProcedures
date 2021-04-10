@@ -2,14 +2,14 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Generator.Helpers;
+using Persistence.Generator.Helpers;
 using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
 
-namespace DataAccess
+namespace Persistence
 {
-    partial class DbProcedureService : Generator.Helpers.BaseDbProcedure, IDbProcedureService
+    partial class DbProcedureService : Persistence.Generator.Helpers.BaseDbProcedure, IDbProcedureService
     {
         public DbProcedureService(AspNetCore.Lib.Configurations.IAppSettings appSettings)
                 : base(appSettings.ConnectionString)
