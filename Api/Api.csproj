@@ -16,4 +16,10 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AspNetCore.Lib">
+      <HintPath>..\..\AspNetCore.Lib.V3.1.9\AspNetCore.Lib\bin\Debug\netcoreapp3.1\AspNetCore.Lib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess\\DataAccess.csproj": {}
+    "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\Generator.csproj": {
+    "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
+        "projectUniqueName": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
         "projectName": "Generator",
-        "projectPath": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
-        "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\obj\\",
+        "projectPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj",
+        "packagesPath": "C:\\Users\\Ramin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\ramin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Ramin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -65,27 +63,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Ramin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\ramin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Ramin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -98,8 +94,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\Generator.csproj": {
-                "projectPath": "C:\\Users\\ramin\\source\\repos\\StoreProcedures\\DataAccess.Generator\\Generator.csproj"
+              "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj": {
+                "projectPath": "C:\\Users\\Ramin\\Source\\StoreProcedures\\DataAccess.Generator\\Generator.csproj"
               }
             }
           }
@@ -144,7 +140,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

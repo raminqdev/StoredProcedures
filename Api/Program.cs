@@ -27,6 +27,8 @@ namespace Api
                 logger.LogError(ex, "An error ocurred during migration");
             }
             await host.RunAsync();
+
+            //var sth = await new Todo().ListProducts();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

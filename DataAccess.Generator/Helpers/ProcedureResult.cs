@@ -9,22 +9,27 @@ namespace Generator.Helpers
 {
     public class ProcedureResult
     {
+        readonly DataSet _dataSet;
+        readonly int _returnValue = 0;
+        readonly IDictionary<string, object> _items;
+
         public ProcedureResult(SqlCommand command, DataSet dataSet)
         {
             _dataSet = dataSet;
             _items = command.Parameters.Cast<SqlParameter>()
                    .Select(p => new KeyValuePair<string, object>(p.ParameterName, p.Value))
                    .ToDictionary(e => e.Key, e => e.Value);
-            
-            if(command.CommandType == CommandType.StoredProcedure && command.Parameters.OfType<SqlParameter>().Any(p => p.ParameterName.Equals("ReturnValue")))
+
+            if (command.CommandType == CommandType.StoredProcedure &&
+                command.Parameters.OfType<SqlParameter>()
+                .Any(p => p.ParameterName.Equals("ReturnValue")))
+            {
                 _returnValue = Convert.ToInt32(GetParameterValue("ReturnValue"));
+            }
         }
 
-        readonly DataSet _dataSet;
-        readonly int _returnValue = 0;
-        readonly IDictionary<string, object> _items;
 
-        private IEnumerable<TModel> convertToModel<TModel>(DataTable table)
+        private IEnumerable<TModel> ConvertToModel<TModel>(DataTable table)
             where TModel : class
         {
             //var rows = table.AsEnumerable().ToArray();
@@ -33,7 +38,7 @@ namespace Generator.Helpers
                             .Cast<DataColumn>()
                             .Where(e => properties.Any(p => p.Key.Equals(e.ColumnName)))
                             .ToArray();
-            
+
             return table.AsEnumerable().ConvertAll<TModel>(row =>
             {
                 try
@@ -75,11 +80,11 @@ namespace Generator.Helpers
 
         public IEnumerable<T> List<T>(int tableIndex)
             where T : class
-            => convertToModel<T>(_dataSet.Tables[tableIndex]);
+            => ConvertToModel<T>(_dataSet.Tables[tableIndex]);
 
         public IEnumerable<T> List<T>(string tableName)
             where T : class
-            => convertToModel<T>(_dataSet.Tables[tableName]);
+            => ConvertToModel<T>(_dataSet.Tables[tableName]);
 
         public IEnumerable<T> List<T>(int tableIndex, Func<DataRow, T> selector)
             => _dataSet.Tables[tableIndex].Rows.Cast<DataRow>().Select(selector).ToArray();

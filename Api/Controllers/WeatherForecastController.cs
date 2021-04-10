@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.EFModels;
+using DataAccess.Stores;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,31 +11,33 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly IProductStore productStore;
+        private readonly ITodo todo;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherController(IProductStore productStore,ITodo todo)
         {
-            _logger = logger;
+            this.productStore = productStore;
+            this.todo = todo;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IList<Product>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await productStore.List();
+        }
+
+        [HttpGet("GetConvertedList")]
+        public async Task<IList<Product>> GetConvertedList()
+        {
+            return await productStore.ConvertedList();
+        }
+
+        [HttpGet("GetProductsEntityFramWorkCore")]
+        public async Task<IList<Product>> GetProductsEntityFramWorkCore()
+        {
+            return await todo.ListProductsEntityFramWorkCore();
         }
     }
 }

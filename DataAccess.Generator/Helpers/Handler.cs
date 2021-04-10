@@ -14,25 +14,25 @@ namespace Generator.Helpers
         }
 
         #region Constants
-        readonly string _connectionString;// = "Data Source=192.168.0.40;Initial Catalog=IranHost.com_Primary;Persist Security Info=True;User ID=devsa;Password=123456;";
+        readonly string _connectionString;
 
         const string Query = @"SELECT p.schema_id SchemaID
-                                        , p.[object_id] ProcedureID
-	                                    , COALESCE(a.parameter_id, -1) ParameterID
-                                        , COALESCE(a.system_type_id, -1) TypeID
-                                        , h.[name] + '.' + p.[name] Name
-                                        , ISNULL(th.[name], '') TypeSchema
-                                        , ISNULL(t.[name], '') TypeName
-                                        , t.is_table_type IsTableType
-                                        , ISNULL(a.max_length, 0) Size
-                                        , ISNULL(a.[name], '') ParameterName
-                                        , CAST(ISNULL(a.is_output, 0) AS BIT) IsOutput
-                                    FROM sys.procedures p
-                                    INNER JOIN sys.schemas h ON p.[schema_id] = h.[schema_id]
-                                    LEFT JOIN sys.parameters a ON p.[object_id] = a.[object_id]
-                                    LEFT JOIN sys.types t ON a.user_type_id = t.user_type_id
-                                    LEFT JOIN sys.schemas th ON t.[schema_id] = th.[schema_id]
-                                    WHERE h.[name] <> 'sys'";
+                                                , p.[object_id] ProcedureID
+                                                , COALESCE(a.parameter_id, -1) ParameterID
+                                                , COALESCE(a.system_type_id, -1) TypeID
+                                                , h.[name] + '.' + p.[name] as Name
+                                                , ISNULL(th.[name], '') TypeSchema
+                                                , ISNULL(t.[name], '') TypeName
+                                                , t.is_table_type IsTableType
+                                                , ISNULL(a.max_length, 0) Size
+                                                , ISNULL(a.[name], '') ParameterName
+                                                , CAST(ISNULL(a.is_output, 0) AS BIT) IsOutput
+                                            FROM sys.procedures p
+                                            INNER JOIN sys.schemas h ON p.[schema_id] = h.[schema_id]
+                                            LEFT JOIN sys.parameters a ON p.[object_id] = a.[object_id]
+                                            LEFT JOIN sys.types t ON a.user_type_id = t.user_type_id
+                                            LEFT JOIN sys.schemas th ON t.[schema_id] = th.[schema_id]
+                                            WHERE h.[name] <> 'sys'";
         #endregion
 
         public IEnumerable<StoredProcedure> GetProcedures(params string[] schema)

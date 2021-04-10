@@ -8,10 +8,11 @@
     ".NETCoreApp,Version=v5.0": {
       "DataAccess/1.0.0": {
         "dependencies": {
-          "DataAccess.Generator": "1.0.0",
+          "Generator": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0",
-          "Microsoft.EntityFrameworkCore.Tools": "5.0.0"
+          "Microsoft.EntityFrameworkCore.Tools": "5.0.0",
+          "AspNetCore.Lib": "1.0.0.0"
         },
         "runtime": {
           "DataAccess.dll": {}
@@ -1122,12 +1123,20 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "DataAccess.Generator/1.0.0": {
+      "Generator/1.0.0": {
         "dependencies": {
           "System.Data.SqlClient": "4.8.2"
         },
         "runtime": {
-          "DataAccess.Generator.dll": {}
+          "Generator.dll": {}
+        }
+      },
+      "AspNetCore.Lib/1.0.0.0": {
+        "runtime": {
+          "AspNetCore.Lib.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -1852,8 +1861,13 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "DataAccess.Generator/1.0.0": {
+    "Generator/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AspNetCore.Lib/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

@@ -1,3 +1,5 @@
+using AspNetCore.Lib.Configurations;
+using DataAccess;
 using DataAccess.EFModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,14 @@ namespace Api
 
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddDataAccessLayer();
+            services.AddSingleton(typeof(IAppSettings), new AppSettings
+            {
+                ConnectionString = Configuration.GetConnectionString("Default")
+            });
+
+            services.AddScoped<ITodo, Todo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

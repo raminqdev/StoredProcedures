@@ -33,7 +33,6 @@ namespace Generator.Helpers
 
         protected virtual void OnExecuteCommand(SqlCommand command)
         {
-
         }
 
         protected ProcedureResult Execute(SqlCommand command)
