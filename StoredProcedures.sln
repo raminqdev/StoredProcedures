@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{D6377E3C-BAFC-46CF-9AB7-60509FB69FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Generator", "DataAccess.Generator\Persistence.Generator.csproj", "{30CE2782-9D75-4CB1-98E6-3D7E72237877}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Generator", Persistence.Generator\Persistence.Generator.csproj", "{30CE2782-9D75-4CB1-98E6-3D7E72237877}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{878ADF9C-D55A-4713-9F1A-6F14D2DAE74B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Generator", "Persistence.Generator\Persistence.Generator.csproj", "{1F8F1B83-1963-4DC9-AC7C-0F81D60321EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{878ADF9C-D55A-4713-9F1A-6F14D2DAE74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{878ADF9C-D55A-4713-9F1A-6F14D2DAE74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{878ADF9C-D55A-4713-9F1A-6F14D2DAE74B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8F1B83-1963-4DC9-AC7C-0F81D60321EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8F1B83-1963-4DC9-AC7C-0F81D60321EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8F1B83-1963-4DC9-AC7C-0F81D60321EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8F1B83-1963-4DC9-AC7C-0F81D60321EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

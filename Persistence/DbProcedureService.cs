@@ -6,6 +6,7 @@ using Persistence.Generator.Helpers;
 using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
+using Microsoft.Data.SqlClient;
 
 namespace Persistence
 {

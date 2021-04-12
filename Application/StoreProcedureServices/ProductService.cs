@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AspNetCore.Lib.Models;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 using Persistence.EFModels;
 using Persistence.Stores;
 
