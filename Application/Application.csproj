@@ -6,7 +6,16 @@
 
     <ItemGroup>
       <Folder Include="DapperServices" />
-      <Folder Include="StoreProdecureServices" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="AspNetCore.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\AspNetCore.Lib.V3.1.9\AspNetCore.Lib\bin\Debug\netcoreapp3.1\AspNetCore.Lib.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

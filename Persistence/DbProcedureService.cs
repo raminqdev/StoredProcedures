@@ -33,6 +33,27 @@ namespace Persistence
                 throw new AspNetCore.Lib.Configurations.AppException($"Error on executing stored procedure '{command.CommandText}'.");
         }
 
+        #region CreateOrUpdateProduct
+        public SqlCommand CreateOrUpdateProduct_Command(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+        {
+            var cmd = new SqlCommand("dbo.spCreateOrUpdateProduct");
+            cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Id", id == null ? DBNull.Value : (object)id);
+			cmd.Parameters.AddWithValue("Name", name == null ? DBNull.Value : (object)name);
+			cmd.Parameters.AddWithValue("Code", code == null ? DBNull.Value : (object)code);
+			cmd.Parameters.AddWithValue("Quantity", quantity == null ? DBNull.Value : (object)quantity);
+			cmd.Parameters.AddWithValue("UnitePrice", unitePrice == null ? DBNull.Value : (object)unitePrice);
+			cmd.Parameters.AddWithValue("Description", description == null ? DBNull.Value : (object)description);
+			cmd.Parameters.AddWithValue("Enabled", enabled == null ? DBNull.Value : (object)enabled);
+			cmd.Parameters.AddWithValue("StorageId", storageId == null ? DBNull.Value : (object)storageId);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
+            return cmd;
+        }
+
+        public async Task<ProcedureResult> CreateOrUpdateProductAsync(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+            => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
+        #endregion
+
         #region GetAllProducts
         public SqlCommand GetAllProducts_Command()
         {
@@ -41,9 +62,6 @@ namespace Persistence
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
-
-        public ProcedureResult GetAllProducts()
-            => Execute(GetAllProducts_Command());
 
         public async Task<ProcedureResult> GetAllProductsAsync()
             => await ExecuteAsync(GetAllProducts_Command());
@@ -57,9 +75,6 @@ namespace Persistence
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
-
-        public ProcedureResult GetAllStorages()
-            => Execute(GetAllStorages_Command());
 
         public async Task<ProcedureResult> GetAllStoragesAsync()
             => await ExecuteAsync(GetAllStorages_Command());

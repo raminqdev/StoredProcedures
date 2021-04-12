@@ -1,6 +1,5 @@
 using AspNetCore.Lib.Configurations;
 using DataAccess;
-using DataAccess.EFModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Persistence.EFModels;
 
 namespace Api
 {
@@ -34,12 +34,12 @@ namespace Api
                  options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddDataAccessLayer();
+            services.AddApplicationLayer();
             services.AddSingleton(typeof(IAppSettings), new AppSettings
             {
                 ConnectionString = Configuration.GetConnectionString("Default")
             });
-
-            services.AddScoped<ITodo, Todo>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

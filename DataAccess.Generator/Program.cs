@@ -51,10 +51,9 @@ namespace Persistence.Generator
                 code.AppendLine("");
                 code.AppendLine($"        #region {proc.Name.Substring(2)}");
                 code.AppendLine($"        SqlCommand {proc.Name.Substring(2)}_Command({arguments});");
-                code.AppendLine($"        ProcedureResult {proc.Name.Substring(2)}({arguments});");
+                //code.AppendLine($"        ProcedureResult {proc.Name.Substring(2)}({arguments});");
                 code.AppendLine($"        Task<ProcedureResult> {proc.Name.Substring(2)}Async({arguments});");
                 code.AppendLine($"        #endregion");
-                code.AppendLine("");
             }
 
             code.AppendLine("    }");
@@ -124,9 +123,9 @@ namespace Persistence.Generator
                 code.AppendLine($"            return cmd;");
                 code.AppendLine($"        }}");
                 code.AppendLine("");
-                code.AppendLine($"        public ProcedureResult {proc.Name.Substring(2)}({arguments})");
-                code.AppendLine($"            => Execute({proc.Name.Substring(2)}_Command({BuildCallArgs(proc)}));");
-                code.AppendLine("");
+                // code.AppendLine($"        public ProcedureResult {proc.Name.Substring(2)}({arguments})");
+                // code.AppendLine($"            => Execute({proc.Name.Substring(2)}_Command({BuildCallArgs(proc)}));");
+                // code.AppendLine("");
                 code.AppendLine(
                     $"        public async Task<ProcedureResult> {proc.Name.Substring(2)}Async({arguments})");
                 code.AppendLine(

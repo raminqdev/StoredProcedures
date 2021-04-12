@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataAccess.EFModels
+namespace Persistence.EFModels
 {
     public class Storage
     {

@@ -1,2 +1,1 @@
-﻿dotnet ef migrations add InitialDb -p .\DataAccess -s .\Api 
-
+﻿dotnet ef migrations add InitialDb -p .\Persistence\ -s .\Api

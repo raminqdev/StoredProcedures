@@ -6,11 +6,6 @@ IF (OBJECT_ID('dbo.spGetAllStorages') IS NOT NULL)
     DROP PROCEDURE dbo.spGetAllStorages
 GO
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE PROCEDURE [spGetAllStorages] 
 AS
 BEGIN

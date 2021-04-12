@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataAccess.EFModels
+namespace Persistence.EFModels
 {
     public class Product
     {
@@ -8,6 +8,7 @@ namespace DataAccess.EFModels
         public string Name { get; set; }
         public string Code { get; set; }
         public int Quantity { get; set; }
+        
         [Column(TypeName = "decimal(8, 2)")]
         public decimal UnitePrice { get; set; }
         public string Description { get; set; }

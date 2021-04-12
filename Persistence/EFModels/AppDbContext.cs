@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.EFModels
+namespace Persistence.EFModels
 {
     public class AppDbContext : DbContext
     {
