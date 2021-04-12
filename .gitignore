@@ -3,7 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-Persistence.Generator/
+Persistence.Generator/Helpers
+Persistence.Generator/Program.cs
 
 # User-specific files
 *.rsuser

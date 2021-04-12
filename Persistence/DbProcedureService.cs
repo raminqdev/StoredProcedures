@@ -1,15 +1,14 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Persistence.Generator.Helpers;
-using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
 using Microsoft.Data.SqlClient;
 
 namespace Persistence
 {
+    [TypeLifeTime(TypeLifetime.Singleton)]
     partial class DbProcedureService : Persistence.Generator.Helpers.BaseDbProcedure, IDbProcedureService
     {
         public DbProcedureService(AspNetCore.Lib.Configurations.IAppSettings appSettings)
@@ -51,6 +50,9 @@ namespace Persistence
             return cmd;
         }
 
+        public ProcedureResult CreateOrUpdateProduct(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+            => Execute(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
+
         public async Task<ProcedureResult> CreateOrUpdateProductAsync(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
             => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
         #endregion
@@ -64,6 +66,9 @@ namespace Persistence
             return cmd;
         }
 
+        public ProcedureResult GetAllProducts()
+            => Execute(GetAllProducts_Command());
+
         public async Task<ProcedureResult> GetAllProductsAsync()
             => await ExecuteAsync(GetAllProducts_Command());
         #endregion
@@ -76,6 +81,9 @@ namespace Persistence
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
+
+        public ProcedureResult GetAllStorages()
+            => Execute(GetAllStorages_Command());
 
         public async Task<ProcedureResult> GetAllStoragesAsync()
             => await ExecuteAsync(GetAllStorages_Command());

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using AspNetCore.Lib.Configurations;
+using AspNetCore.Lib.Services.Interfaces;
+using Microsoft.AspNetCore;
 using Persistence.EFModels;
 
 namespace Api
@@ -13,8 +14,9 @@ namespace Api
     {
         public static async Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            using var scope = host.Services.CreateScope();
+            Statistics.WebHost = CreateWebHostBuilder(args).Build();
+            
+            using var scope = Statistics.WebHost.Services.CreateScope();
             var services = scope.ServiceProvider;
             try
             {
@@ -23,19 +25,14 @@ namespace Api
             }
             catch (Exception ex)
             {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error ocurred during migration");
+                var logger = services.GetRequiredService<ILogger>();
+                logger.Exception(ex, "An error occurred during migration");
             }
-            await host.RunAsync();
-
-            //var sth = await new Todo().ListProducts();
+            
+            await Statistics.WebHost.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
     }
 }
