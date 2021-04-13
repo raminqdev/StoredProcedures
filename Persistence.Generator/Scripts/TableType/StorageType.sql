@@ -6,11 +6,11 @@ IF (TYPE_ID('StorageType') IS NOT NULL)
 GO
 
 CREATE TYPE StorageType AS TABLE
-    (
+(
     Id                INT,
-    Name              NVARCHAR(MAX),
-    Phone             NVARCHAR(MAX),
-    City              NVARCHAR(MAX),
-    Address           NVARCHAR(MAX),
+    Name              NVARCHAR(100),
+    Phone             NVARCHAR(100),
+    City              NVARCHAR(100),
+    Address           NVARCHAR(1024),
     Enabled           BIT
 )

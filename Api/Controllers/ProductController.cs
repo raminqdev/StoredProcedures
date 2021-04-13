@@ -14,8 +14,7 @@ namespace Api.Controllers
     {
         private readonly IProductStore _productStore;
         private readonly IProductService _productService;
-
-
+        
         public ProductController(IProductStore productStore,IProductService productService)
         {
             _productStore = productStore;

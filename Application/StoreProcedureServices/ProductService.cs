@@ -8,13 +8,13 @@ using Persistence.Stores;
 
 namespace Application.StoreProcedureServices
 {
-    public class ProductService:IProductService
+    public class ProductService : IProductService
     {
         private readonly AppDbContext _context;
         private readonly IProductStore _productStore;
         private readonly ILogger _logger;
 
-        public ProductService(AppDbContext context,IProductStore productStore,ILogger logger)
+        public ProductService(AppDbContext context, IProductStore productStore, ILogger logger)
         {
             _context = context;
             _productStore = productStore;
@@ -25,13 +25,12 @@ namespace Application.StoreProcedureServices
         {
             return await _context.Products.ToListAsync();
         }
-        
+
         public async Task<Result> CreateOrUpdate(Product product)
         {
             _logger.Info("CreateOrUpdate");
             return await _productStore.CreateOrUpdate(product);
         }
-        
     }
 
     public interface IProductService
@@ -40,5 +39,4 @@ namespace Application.StoreProcedureServices
 
         Task<Result> CreateOrUpdate(Product product);
     }
-    
 }

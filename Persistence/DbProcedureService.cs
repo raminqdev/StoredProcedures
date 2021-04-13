@@ -1,7 +1,9 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Persistence.Generator.Helpers;
+using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
 using Microsoft.Data.SqlClient;
@@ -32,6 +34,24 @@ namespace Persistence
             if (returnValue < 0)
                 throw new AspNetCore.Lib.Configurations.AppException($"Error on executing stored procedure '{command.CommandText}'.");
         }
+
+        #region AddStorages
+        public SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products)
+        {
+            var cmd = new SqlCommand("dbo.spAddStorages");
+            cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Storages", storages == null ? DBNull.Value : (object)storages);
+			cmd.Parameters.AddWithValue("Products", products == null ? DBNull.Value : (object)products);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
+            return cmd;
+        }
+
+        public ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products)
+            => Execute(AddStorages_Command(storages, products));
+
+        public async Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products)
+            => await ExecuteAsync(AddStorages_Command(storages, products));
+        #endregion
 
         #region CreateOrUpdateProduct
         public SqlCommand CreateOrUpdateProduct_Command(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
