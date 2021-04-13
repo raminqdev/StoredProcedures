@@ -1,5 +1,4 @@
-﻿
-USE [Inventory.sp]
+﻿USE [Inventory.sp]
 GO
 
 IF (OBJECT_ID('dbo.spCreateOrUpdateProduct') IS NOT NULL)
