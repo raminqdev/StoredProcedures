@@ -35,27 +35,45 @@ namespace Persistence
                 throw new AspNetCore.Lib.Configurations.AppException($"Error on executing stored procedure '{command.CommandText}'.");
         }
 
-        #region AddStorages
-        public SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
+        #region AddStorages_Products
+        public SqlCommand AddStorages_Products_Command(System.Data.DataTable storages, System.Data.DataTable products)
         {
-            var cmd = new SqlCommand("dbo.spAddStorages");
+            var cmd = new SqlCommand("dbo.spAddStorages_Products");
             cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.AddWithValue("Storages", storages == null ? DBNull.Value : (object)storages);
 			cmd.Parameters.AddWithValue("Products", products == null ? DBNull.Value : (object)products);
-			cmd.Parameters.AddWithValue("Suppliers", suppliers == null ? DBNull.Value : (object)suppliers);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
 
-        public ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
-            => Execute(AddStorages_Command(storages, products, suppliers));
+        public ProcedureResult AddStorages_Products(System.Data.DataTable storages, System.Data.DataTable products)
+            => Execute(AddStorages_Products_Command(storages, products));
 
-        public async Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
-            => await ExecuteAsync(AddStorages_Command(storages, products, suppliers));
+        public async Task<ProcedureResult> AddStorages_ProductsAsync(System.Data.DataTable storages, System.Data.DataTable products)
+            => await ExecuteAsync(AddStorages_Products_Command(storages, products));
+        #endregion
+
+        #region AddStorages_Suppliers_Products
+        public SqlCommand AddStorages_Suppliers_Products_Command(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products)
+        {
+            var cmd = new SqlCommand("dbo.spAddStorages_Suppliers_Products");
+            cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Storages", storages == null ? DBNull.Value : (object)storages);
+			cmd.Parameters.AddWithValue("Suppliers", suppliers == null ? DBNull.Value : (object)suppliers);
+			cmd.Parameters.AddWithValue("Products", products == null ? DBNull.Value : (object)products);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
+            return cmd;
+        }
+
+        public ProcedureResult AddStorages_Suppliers_Products(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products)
+            => Execute(AddStorages_Suppliers_Products_Command(storages, suppliers, products));
+
+        public async Task<ProcedureResult> AddStorages_Suppliers_ProductsAsync(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products)
+            => await ExecuteAsync(AddStorages_Suppliers_Products_Command(storages, suppliers, products));
         #endregion
 
         #region CreateOrUpdateProduct
-        public SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
+        public SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId)
         {
             var cmd = new SqlCommand("dbo.spCreateOrUpdateProduct");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -67,15 +85,16 @@ namespace Persistence
 			cmd.Parameters.AddWithValue("Description", description == null ? DBNull.Value : (object)description);
 			cmd.Parameters.AddWithValue("Enabled", enabled == null ? DBNull.Value : (object)enabled);
 			cmd.Parameters.AddWithValue("StorageId", storageId == null ? DBNull.Value : (object)storageId);
+			cmd.Parameters.AddWithValue("SupplierId", supplierId == null ? DBNull.Value : (object)supplierId);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
 
-        public ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
-            => Execute(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
+        public ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId)
+            => Execute(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId, supplierId));
 
-        public async Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
-            => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
+        public async Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId)
+            => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId, supplierId));
         #endregion
 
         #region GetAllProducts

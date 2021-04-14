@@ -9,9 +9,9 @@ GO
 CREATE PROCEDURE [spGetAllStorages] 
 AS
 BEGIN
-	SET NOCOUNT ON;
-	SET XACT_ABORT ON;
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
 
-	SELECT * from Storages
+    SELECT * from Storages
 END
 GO

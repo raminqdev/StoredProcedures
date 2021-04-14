@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess.Generator\Persistence.Generator.csproj" />
     <ProjectReference Include="..\Persistence.Generator\Persistence.Generator.csproj" />
   </ItemGroup>
 

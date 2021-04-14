@@ -14,7 +14,9 @@ CREATE PROCEDURE dbo.spCreateOrUpdateProduct
     @UnitePrice DECIMAL(8, 2),
     @Description NVARCHAR(Max),
     @Enabled BIT,
-    @StorageId UNIQUEIDENTIFIER
+    @StorageId UNIQUEIDENTIFIER,
+    @SupplierId UNIQUEIDENTIFIER
+    
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -29,7 +31,7 @@ BEGIN
             BEGIN
                 SET @Id = NEWID()
                 INSERT INTO [Products]
-                VALUES(@Id, @Name, @Code, @Quantity, @UnitePrice, @Description, @Enabled, @StorageId)
+                VALUES(@Id, @Name, @Code, @Quantity, @UnitePrice, @Description, @Enabled, @StorageId,@SupplierId)
                 SELECT @Id
             END
 
@@ -50,3 +52,4 @@ BEGIN
 
     RETURN @Res
 END
+GO

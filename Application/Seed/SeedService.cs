@@ -27,16 +27,22 @@ namespace Application.Seed
             string productFile = File.ReadAllText(Path.Combine(Environment.CurrentDirectory,
                 "../Application/Seed/Products.json"));
             var products = JsonConvert.DeserializeObject<IList<Product>>(productFile).ToList(); //1000
-            
+
             string supplierFile = File.ReadAllText(Path.Combine(Environment.CurrentDirectory,
                 "../Application/Seed/Suppliers.json"));
             var suppliers = JsonConvert.DeserializeObject<IList<Supplier>>(supplierFile).ToList(); //30
 
-            var random = new Random();
             
-            //500 ---> 5000
+            var random = new Random();
+            var x = 10;
+            var y = x * 10;
+            var totalStorage = 500 * x;                  
+            var totalProduct = 1000 * y + 20;             
+            var totalSupplier = 100 * x;                  
+
+
             var newStorages = new List<Storage>();
-            for (var i = 0; i < 5000; i++)
+            for (var i = 0; i < totalStorage; i++)
             {
                 var s = storages[random.Next(0, 500)];
                 newStorages.Add(new Storage
@@ -49,14 +55,12 @@ namespace Application.Seed
                     Enabled = s.Enabled
                 });
             }
-
             if (newStorages.GroupBy(x => x.Id).Any(g => g.Count() > 1))
                 throw new Exception("Storages duplicate key");
 
 
-            //1000 ---> 100020
             var newProducts = new List<Product>();
-            for (var i = 0; i < 100020; i++)
+            for (var i = 0; i < totalProduct; i++)
             {
                 var s = products[random.Next(0, 1000)];
                 newProducts.Add(new Product
@@ -70,14 +74,12 @@ namespace Application.Seed
                     UnitePrice = s.UnitePrice
                 });
             }
-
             if (newProducts.GroupBy(x => x.Id).Any(g => g.Count() > 1))
                 throw new Exception("Product duplicate key");
-            
-            
-            //30 ---> 200
+
+
             var newSuppliers = new List<Supplier>();
-            for (var i = 0; i < 200; i++)
+            for (var i = 0; i < totalSupplier; i++)
             {
                 var s = suppliers[random.Next(0, 30)];
                 newSuppliers.Add(new Supplier
@@ -98,7 +100,6 @@ namespace Application.Seed
                     PostalCode = s.PostalCode
                 });
             }
-
             if (newSuppliers.GroupBy(x => x.Id).Any(g => g.Count() > 1))
                 throw new Exception("Supplier duplicate key");
 
@@ -113,21 +114,18 @@ namespace Application.Seed
                         newProducts[j].Storage = newStorages[i];
                         newStorages[i].Products.Add(newProducts[j]);
 
-                        var index = random.Next(0, 200);
+                        var index = random.Next(0, totalSupplier);
                         newProducts[j].SupplierId = newSuppliers[index].Id;
                         newProducts[j].Supplier = newSuppliers[index];
                         newSuppliers[index].Products.Add(newProducts[j]);
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(i);
-                        Console.WriteLine(j);
-                        throw e;
+                        Console.WriteLine(i); Console.WriteLine(j); throw e;
                     }
-                 
                 }
             }
-            
+
             return newStorages;
         }
     }

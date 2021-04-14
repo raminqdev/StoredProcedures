@@ -20,13 +20,22 @@ namespace Persistence.Stores
         {
             if (storages == null || !storages.Any())
                 return Result.Successful();
+
             var tables = storages.AsDataTables();
+
             var storageDataTables = tables.FirstOrDefault(t => t.TableName == "Storage");
             var productDataTables = tables.FirstOrDefault(t => t.TableName == "Product");
-            var supplierDataTables = tables.FirstOrDefault(t => t.TableName == "Supplier") ?? 
-                                     new List<Supplier>().AsDataTable();;
-            await _dbProcedureService.AddStoragesAsync(storageDataTables, 
-                productDataTables,supplierDataTables);
+            
+            var supplierDataTables = tables.FirstOrDefault(t => t.TableName == "Supplier") ?? storages
+                .SelectMany(s => s.Products.Select(p => p.Supplier))
+                .GroupBy(x => x.Id).Select(x => x.First())
+                .AsDataTable();
+
+            await _dbProcedureService.AddStorages_Suppliers_ProductsAsync(
+                storageDataTables,
+                supplierDataTables,
+                productDataTables);
+
             return Result.Successful();
         }
     }

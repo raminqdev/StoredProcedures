@@ -30,7 +30,8 @@ namespace Persistence.Stores
                     unitePrice:product.UnitePrice,
                     description:product.Description,
                     enabled: product.Enabled,
-                    storageId:product.StorageId);
+                    storageId:product.StorageId,
+                    supplierId:product.SupplierId);
 
                 return res.Succeed
                     ? Result.Successful()

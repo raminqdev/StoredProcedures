@@ -9,8 +9,9 @@ GO
 CREATE PROCEDURE [spGetAllProducts] 
 AS
 BEGIN
-	SET NOCOUNT ON;
-	SET XACT_ABORT ON;
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
 
     SELECT * from Products
 END
+GO

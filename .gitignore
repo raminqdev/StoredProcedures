@@ -5,6 +5,7 @@
 
 Persistence.Generator/Helpers
 Persistence.Generator/Program.cs
+Api/Logs
 
 # User-specific files
 *.rsuser

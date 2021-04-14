@@ -1,14 +1,13 @@
 ﻿USE [Inventory.sp]
 GO
 
-IF (OBJECT_ID('dbo.spAddStorages') IS NOT NULL)
-    DROP PROCEDURE dbo.spAddStorages
+IF (OBJECT_ID('dbo.spAddStorages_Products') IS NOT NULL)
+    DROP PROCEDURE dbo.spAddStorages_Products
 GO
 
-CREATE PROCEDURE dbo.spAddStorages
+CREATE PROCEDURE dbo.spAddStorages_Products
     @Storages StorageType READONLY,
-    @Products ProductType READONLY,
-    @Suppliers SupplierType READONLY 
+    @Products ProductType READONLY
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -22,10 +21,6 @@ BEGIN
         INSERT INTO [Products]
         SELECT *
         FROM @Products
-
-        INSERT INTO [Suppliers]
-        SELECT *
-        FROM @Suppliers
     COMMIT
     
     RETURN @@ROWCOUNT

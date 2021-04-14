@@ -10,16 +10,22 @@ namespace Persistence
     public partial interface IDbProcedureService: Persistence.Generator.Helpers.IBaseDbProcedure
     {
 
-        #region AddStorages
-        SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
-        ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
-        Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
+        #region AddStorages_Products
+        SqlCommand AddStorages_Products_Command(System.Data.DataTable storages, System.Data.DataTable products);
+        ProcedureResult AddStorages_Products(System.Data.DataTable storages, System.Data.DataTable products);
+        Task<ProcedureResult> AddStorages_ProductsAsync(System.Data.DataTable storages, System.Data.DataTable products);
+        #endregion
+
+        #region AddStorages_Suppliers_Products
+        SqlCommand AddStorages_Suppliers_Products_Command(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products);
+        ProcedureResult AddStorages_Suppliers_Products(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products);
+        Task<ProcedureResult> AddStorages_Suppliers_ProductsAsync(System.Data.DataTable storages, System.Data.DataTable suppliers, System.Data.DataTable products);
         #endregion
 
         #region CreateOrUpdateProduct
-        SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
-        ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
-        Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
+        SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
+        ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
+        Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
         #endregion
 
         #region GetAllProducts

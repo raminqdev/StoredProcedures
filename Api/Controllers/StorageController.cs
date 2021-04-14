@@ -17,9 +17,17 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<Result> AddStorages()
+        [Route("AddStoragesSp")]
+        public async Task<Result> AddStoragesSp()
         {
-            return await _storageService.AddStorages();
+            return await _storageService.AddStoragesSp();
+        }
+        
+        [HttpPost]
+        [Route("AddStoragesEfCore")]
+        public async Task<Result> AddStoragesEfCore()
+        {
+            return await _storageService.AddStoragesEfCore();
         }
     }
 }
