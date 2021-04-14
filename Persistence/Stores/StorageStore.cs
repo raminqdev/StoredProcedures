@@ -23,7 +23,10 @@ namespace Persistence.Stores
             var tables = storages.AsDataTables();
             var storageDataTables = tables.FirstOrDefault(t => t.TableName == "Storage");
             var productDataTables = tables.FirstOrDefault(t => t.TableName == "Product");
-            await _dbProcedureService.AddStoragesAsync(storageDataTables, productDataTables);
+            var supplierDataTables = tables.FirstOrDefault(t => t.TableName == "Supplier") ?? 
+                                     new List<Supplier>().AsDataTable();;
+            await _dbProcedureService.AddStoragesAsync(storageDataTables, 
+                productDataTables,supplierDataTables);
             return Result.Successful();
         }
     }

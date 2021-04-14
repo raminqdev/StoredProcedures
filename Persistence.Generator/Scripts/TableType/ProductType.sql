@@ -14,5 +14,6 @@ CREATE TYPE ProductType AS TABLE
     UnitePrice        DECIMAL(8,2),
     Description       NVARCHAR(MAX),
     Enabled           BIT,
-    StorageId         UNIQUEIDENTIFIER
+    StorageId         UNIQUEIDENTIFIER,
+    SupplierId        UNIQUEIDENTIFIER
 )

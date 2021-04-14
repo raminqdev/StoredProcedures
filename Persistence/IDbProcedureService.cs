@@ -11,9 +11,9 @@ namespace Persistence
     {
 
         #region AddStorages
-        SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products);
-        ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products);
-        Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products);
+        SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
+        ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
+        Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers);
         #endregion
 
         #region CreateOrUpdateProduct

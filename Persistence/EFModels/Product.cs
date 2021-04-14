@@ -16,5 +16,9 @@ namespace Persistence.EFModels
         public bool Enabled { get; set; }
         public Guid? StorageId { get; set; }
         public Storage Storage { get; set; }
+        
+        public Guid? SupplierId { get; set; }
+        
+        public Supplier Supplier { get; set; }
     }
 }

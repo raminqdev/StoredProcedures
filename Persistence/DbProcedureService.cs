@@ -36,21 +36,22 @@ namespace Persistence
         }
 
         #region AddStorages
-        public SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products)
+        public SqlCommand AddStorages_Command(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
         {
             var cmd = new SqlCommand("dbo.spAddStorages");
             cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.AddWithValue("Storages", storages == null ? DBNull.Value : (object)storages);
 			cmd.Parameters.AddWithValue("Products", products == null ? DBNull.Value : (object)products);
+			cmd.Parameters.AddWithValue("Suppliers", suppliers == null ? DBNull.Value : (object)suppliers);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
             return cmd;
         }
 
-        public ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products)
-            => Execute(AddStorages_Command(storages, products));
+        public ProcedureResult AddStorages(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
+            => Execute(AddStorages_Command(storages, products, suppliers));
 
-        public async Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products)
-            => await ExecuteAsync(AddStorages_Command(storages, products));
+        public async Task<ProcedureResult> AddStoragesAsync(System.Data.DataTable storages, System.Data.DataTable products, System.Data.DataTable suppliers)
+            => await ExecuteAsync(AddStorages_Command(storages, products, suppliers));
         #endregion
 
         #region CreateOrUpdateProduct

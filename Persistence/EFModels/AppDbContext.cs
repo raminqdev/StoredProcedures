@@ -10,5 +10,7 @@ namespace Persistence.EFModels
         }
         public DbSet<Storage> Storages { get; set; }
         public DbSet<Product> Products { get; set; }
+        
+        public DbSet<Supplier> Suppliers { get; set; }
     }
 }
