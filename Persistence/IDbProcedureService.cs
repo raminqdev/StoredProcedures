@@ -17,9 +17,9 @@ namespace Persistence
         #endregion
 
         #region CreateOrUpdateProduct
-        SqlCommand CreateOrUpdateProduct_Command(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId);
-        ProcedureResult CreateOrUpdateProduct(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId);
-        Task<ProcedureResult> CreateOrUpdateProductAsync(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId);
+        SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
+        ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
+        Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId);
         #endregion
 
         #region GetAllProducts

@@ -7,10 +7,10 @@ GO
 
 CREATE TYPE StorageType AS TABLE
 (
-    Id                INT,
-    Name              NVARCHAR(100),
-    Phone             NVARCHAR(100),
-    City              NVARCHAR(100),
-    Address           NVARCHAR(1024),
+    Id                UNIQUEIDENTIFIER,
+    Name              NVARCHAR(MAX),
+    Phone             NVARCHAR(MAX),
+    City              NVARCHAR(MAX),
+    Address           NVARCHAR(MAX),
     Enabled           BIT
 )

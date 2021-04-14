@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Application;
 using AspNetCore.Lib.Configurations;
 using Microsoft.AspNetCore.Builder;
@@ -41,9 +42,10 @@ namespace Api
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionMiddleware>();
+            
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }

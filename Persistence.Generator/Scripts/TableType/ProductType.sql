@@ -7,12 +7,12 @@ GO
 
 CREATE TYPE ProductType AS TABLE
 (
-    Id                INT,
+    Id                UNIQUEIDENTIFIER,
     Name              NVARCHAR(MAX),
     Code              NVARCHAR(MAX),
     Quantity          INT,
     UnitePrice        DECIMAL(8,2),
     Description       NVARCHAR(MAX),
     Enabled           BIT,
-    StorageId         INT
+    StorageId         UNIQUEIDENTIFIER
 )

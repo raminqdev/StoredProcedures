@@ -54,7 +54,7 @@ namespace Persistence
         #endregion
 
         #region CreateOrUpdateProduct
-        public SqlCommand CreateOrUpdateProduct_Command(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+        public SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
         {
             var cmd = new SqlCommand("dbo.spCreateOrUpdateProduct");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -70,10 +70,10 @@ namespace Persistence
             return cmd;
         }
 
-        public ProcedureResult CreateOrUpdateProduct(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+        public ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
             => Execute(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
 
-        public async Task<ProcedureResult> CreateOrUpdateProductAsync(int? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, int? storageId)
+        public async Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId)
             => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId));
         #endregion
 

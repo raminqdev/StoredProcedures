@@ -7,26 +7,29 @@ GO
 
 
 CREATE PROCEDURE dbo.spCreateOrUpdateProduct
-    @Id INT,
+    @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(Max),
     @Code NVARCHAR(Max),
     @Quantity INT,
     @UnitePrice DECIMAL(8, 2),
     @Description NVARCHAR(Max),
     @Enabled BIT,
-    @StorageId INT
+    @StorageId UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
     SET XACT_ABORT ON;
 
     DECLARE @Res INT
+    Declare @EmptyGuid uniqueidentifier
+    Set @EmptyGuid = '00000000-0000-0000-0000-000000000000'
 
     BEGIN TRAN
-        IF(@Id IS NULL OR @Id = 0)
+        IF(@Id IS NULL OR @Id = @EmptyGuid)
             BEGIN
-                INSERT INTO [Products](Name, Code, Quantity, UnitePrice, Description, Enabled, StorageId)
-                VALUES(@Name, @Code, @Quantity, @UnitePrice, @Description, @Enabled, @StorageId)
+                SET @Id = NEWID()
+                INSERT INTO [Products]
+                VALUES(@Id, @Name, @Code, @Quantity, @UnitePrice, @Description, @Enabled, @StorageId)
                 SELECT @Id
             END
 

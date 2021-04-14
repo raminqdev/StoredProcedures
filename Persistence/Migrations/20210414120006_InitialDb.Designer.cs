@@ -10,7 +10,7 @@ using Persistence.EFModels;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210411005628_InitialDb")]
+    [Migration("20210414120006_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Persistence.EFModels.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -43,8 +42,8 @@ namespace DataAccess.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StorageId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("StorageId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("UnitePrice")
                         .HasColumnType("decimal(8,2)");
@@ -58,10 +57,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Persistence.EFModels.Storage", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");

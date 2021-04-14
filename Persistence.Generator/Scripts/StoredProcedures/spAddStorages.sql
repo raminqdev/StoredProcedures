@@ -15,7 +15,8 @@ BEGIN
 
     BEGIN TRAN
         INSERT INTO [Storages]
-        SELECT Name,
+        SELECT Id,
+               Name,
                Phone,
                City,
                Address,
@@ -23,13 +24,7 @@ BEGIN
         FROM @Storages
            
         INSERT INTO [Products]
-        SELECT Name,
-               Code,
-               Quantity,
-               UnitePrice,
-               Description,
-               Enabled,
-               StorageId
+        SELECT *
         FROM @Products
     COMMIT
     

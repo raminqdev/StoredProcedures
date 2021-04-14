@@ -52,7 +52,7 @@ namespace Persistence.Stores
 
             var res = procedureResult.DataSet.Tables[0].AsEnumerable().Select(p => new Product
             {
-                Id = Convert.ToInt32(p["Id"]),
+                Id = new Guid(Convert.ToString(p["Id"])!),
                 Name = Convert.ToString(p["Name"]),
                 Code = Convert.ToString(p["Code"]),
                 Quantity = Convert.ToInt16(p["Quantity"]),

@@ -21,8 +21,8 @@ namespace Persistence.Stores
             if (storages == null || !storages.Any())
                 return Result.Successful();
             var tables = storages.AsDataTables();
-            var storageDataTables = tables.FirstOrDefault(t => t.TableName == "Storages");
-            var productDataTables = tables.FirstOrDefault(t => t.TableName == "Products");
+            var storageDataTables = tables.FirstOrDefault(t => t.TableName == "Storage");
+            var productDataTables = tables.FirstOrDefault(t => t.TableName == "Product");
             await _dbProcedureService.AddStoragesAsync(storageDataTables, productDataTables);
             return Result.Successful();
         }
