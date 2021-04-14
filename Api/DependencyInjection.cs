@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Reflection;
 using AspNetCore.Lib.Configurations;
-using AspNetCore.Lib.Enums;
 using AspNetCore.Lib.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Application.StoreProcedureServices;
+using Application.StoreProcedureServices.Storage;
 using AspNetCore.Lib.Models;
 using Microsoft.AspNetCore.Mvc;
 

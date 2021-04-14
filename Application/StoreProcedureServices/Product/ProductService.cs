@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.EFModels;
 using Persistence.Stores;
 
-namespace Application.StoreProcedureServices
+namespace Application.StoreProcedureServices.Product
 {
     public class ProductService : IProductService
     {
@@ -21,22 +21,24 @@ namespace Application.StoreProcedureServices
             _logger = logger;
         }
 
-        public async Task<IList<Product>> ListProductsEntityFrameWorkCore()
+        public async Task<IList<Persistence.EFModels.Product>> ListProductsEfCore()
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Result> CreateOrUpdate(Product product)
+        public async Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product)
         {
             _logger.Info("CreateOrUpdate");
             return await _productStore.CreateOrUpdate(product);
         }
+        
+        
     }
 
     public interface IProductService
     {
-        Task<IList<Product>> ListProductsEntityFrameWorkCore();
+        Task<IList<Persistence.EFModels.Product>> ListProductsEfCore();
 
-        Task<Result> CreateOrUpdate(Product product);
+        Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product);
     }
 }

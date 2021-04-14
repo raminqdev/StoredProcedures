@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.StoreProcedureServices;
+using Application.StoreProcedureServices.Product;
 using AspNetCore.Lib.Models;
 using Persistence.EFModels;
 using Persistence.Stores;
@@ -36,19 +36,19 @@ namespace Api.Controllers
         [HttpGet("GetProductsEntityFrameWorkCore")]
         public async Task<IList<Product>> GetProductsEntityFrameWorkCore()
         {
-            return await _productService.ListProductsEntityFrameWorkCore();
+            return await _productService.ListProductsEfCore();
         }
         
         [HttpPost]
         public async Task<Result> Create(Product product)
         {
-            return await _productService.CreateOrUpdate(product);
+            return await _productService.CreateOrUpdateSp(product);
         }
         
         [HttpPut]
         public async Task<Result> Update(Product product)
         {
-            return await _productService.CreateOrUpdate(product);
+            return await _productService.CreateOrUpdateSp(product);
         }
         
     }

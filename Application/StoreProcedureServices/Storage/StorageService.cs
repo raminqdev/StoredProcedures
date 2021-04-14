@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Seed;
 using AspNetCore.Lib.Models;
 using AspNetCore.Lib.Services.Interfaces;
 using Persistence.EFModels;
 using Persistence.Stores;
 
-namespace Application.StoreProcedureServices
+namespace Application.StoreProcedureServices.Storage
 {
     public class StorageService : IStorageService
     {
