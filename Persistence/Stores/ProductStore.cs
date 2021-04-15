@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AspNetCore.Lib.Models;
 using Microsoft.Data.SqlClient;
 using Persistence.EFModels;
+using Persistence.ProcedureServices;
 
 namespace Persistence.Stores
 {

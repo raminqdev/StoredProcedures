@@ -16,12 +16,12 @@ namespace Persistence
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Default")));
-            
+
             var resultServices = TypeRegister.ScanAssemblyTypes(Assembly.GetExecutingAssembly())
                 .ToList();
 
             resultServices.RegisterServicesByLifeTime(services);
-            
+
             return services;
         }
     }

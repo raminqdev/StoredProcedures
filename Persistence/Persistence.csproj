@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Persistence.Generator\Persistence.Generator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ProcedureServices" />
+  </ItemGroup>
+
 </Project>

@@ -1,9 +1,11 @@
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Persistence.Generator.Helpers;
 
-namespace Persistence
+namespace Persistence.ProcedureServices
 {
     public partial interface IDbProcedureService: Persistence.Generator.Helpers.IBaseDbProcedure
     {
@@ -24,6 +26,12 @@ namespace Persistence
         SqlCommand CreateOrUpdateProduct_Command(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
         ProcedureResult CreateOrUpdateProduct(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
         Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId);
+        #endregion
+
+        #region CreateOrUpdateStorage
+        SqlCommand CreateOrUpdateStorage_Command(Guid? id, string name, string phone, string city, string address, bool? enabled);
+        ProcedureResult CreateOrUpdateStorage(Guid? id, string name, string phone, string city, string address, bool? enabled);
+        Task<ProcedureResult> CreateOrUpdateStorageAsync(Guid? id, string name, string phone, string city, string address, bool? enabled);
         #endregion
 
         #region GetAllProducts

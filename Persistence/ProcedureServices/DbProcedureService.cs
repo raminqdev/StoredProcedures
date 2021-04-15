@@ -1,12 +1,14 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Persistence.Generator.Helpers;
+using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
 using Microsoft.Data.SqlClient;
 
-namespace Persistence
+namespace Persistence.ProcedureServices
 {
     [TypeLifeTime(TypeLifetime.Singleton)]
     partial class DbProcedureService : Persistence.Generator.Helpers.BaseDbProcedure, IDbProcedureService
@@ -93,6 +95,28 @@ namespace Persistence
 
         public async Task<ProcedureResult> CreateOrUpdateProductAsync(Guid? id, string name, string code, int? quantity, decimal? unitePrice, string description, bool? enabled, Guid? storageId, Guid? supplierId)
             => await ExecuteAsync(CreateOrUpdateProduct_Command(id, name, code, quantity, unitePrice, description, enabled, storageId, supplierId));
+        #endregion
+
+        #region CreateOrUpdateStorage
+        public SqlCommand CreateOrUpdateStorage_Command(Guid? id, string name, string phone, string city, string address, bool? enabled)
+        {
+            var cmd = new SqlCommand("dbo.spCreateOrUpdateStorage");
+            cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Id", id == null ? DBNull.Value : (object)id);
+			cmd.Parameters.AddWithValue("Name", name == null ? DBNull.Value : (object)name);
+			cmd.Parameters.AddWithValue("Phone", phone == null ? DBNull.Value : (object)phone);
+			cmd.Parameters.AddWithValue("City", city == null ? DBNull.Value : (object)city);
+			cmd.Parameters.AddWithValue("Address", address == null ? DBNull.Value : (object)address);
+			cmd.Parameters.AddWithValue("Enabled", enabled == null ? DBNull.Value : (object)enabled);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
+            return cmd;
+        }
+
+        public ProcedureResult CreateOrUpdateStorage(Guid? id, string name, string phone, string city, string address, bool? enabled)
+            => Execute(CreateOrUpdateStorage_Command(id, name, phone, city, address, enabled));
+
+        public async Task<ProcedureResult> CreateOrUpdateStorageAsync(Guid? id, string name, string phone, string city, string address, bool? enabled)
+            => await ExecuteAsync(CreateOrUpdateStorage_Command(id, name, phone, city, address, enabled));
         #endregion
 
         #region GetAllProducts

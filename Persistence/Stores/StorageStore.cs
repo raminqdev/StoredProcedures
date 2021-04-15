@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AspNetCore.Lib.Extensions;
 using AspNetCore.Lib.Models;
 using Persistence.EFModels;
+using Persistence.ProcedureServices;
 
 namespace Persistence.Stores
 {

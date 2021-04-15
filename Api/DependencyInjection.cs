@@ -9,19 +9,18 @@ namespace Api
 {
     public static class DependencyInjection
     {
-         public static IServiceCollection AddApiLayer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApiLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            
             var coreResultServices = new AspNetCore.Lib.Configurations.DependencyInjection()
                 .AddAspNetCoreLayer(services);
             coreResultServices.RegisterServicesByLifeTime(services);
-            
-            
+
+
             var resultServices = TypeRegister.ScanAssemblyTypes(Assembly.GetExecutingAssembly())
-               .ToList();
-             resultServices.RegisterServicesByLifeTime(services);
-             
-            
+                .ToList();
+            resultServices.RegisterServicesByLifeTime(services);
+
+
             return services;
         }
     }

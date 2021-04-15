@@ -36,17 +36,18 @@ BEGIN
             END
 
         ELSE
-            UPDATE [Products]
-            SET
-                [Name] = @Name,
-                [Code] = @Code,
-                [Quantity]= @Quantity,
-                [UnitePrice] = @UnitePrice,
-                [Description] = @Description,
-                [Enabled] = @Enabled,
-                [StorageId] = @StorageId
-            WHERE Id = @Id
-
+            BEGIN
+                UPDATE [Products]
+                SET
+                    [Name] = @Name,
+                    [Code] = @Code,
+                    [Quantity]= @Quantity,
+                    [UnitePrice] = @UnitePrice,
+                    [Description] = @Description,
+                    [Enabled] = @Enabled,
+                    [StorageId] = @StorageId
+                WHERE Id = @Id
+            END
         SET @Res = @@ROWCOUNT
     COMMIT
 

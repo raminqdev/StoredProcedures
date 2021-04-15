@@ -3,6 +3,7 @@ using Application.EFCoreServices;
 using Application.StoreProcedureServices;
 using AspNetCore.Lib.Models;
 using Microsoft.AspNetCore.Mvc;
+using Persistence.EFModels;
 
 namespace Api.Controllers
 {
@@ -12,25 +13,34 @@ namespace Api.Controllers
     {
         private readonly IStorageSpService _storageSpService;
         private readonly IStorageEfCoreService _storageEfCoreService;
+        private readonly IStorageSqlCommandService _storageSqlCommandService;
 
-        public StorageController(IStorageSpService storageSpService,IStorageEfCoreService storageEfCoreService)
+        public StorageController(IStorageSpService storageSpService,
+            IStorageEfCoreService storageEfCoreService,
+            IStorageSqlCommandService storageSqlCommandService)
         {
             _storageSpService = storageSpService;
             _storageEfCoreService = storageEfCoreService;
+            _storageSqlCommandService = storageSqlCommandService;
         }
 
-        [HttpPost]
-        [Route("AddStoragesSp")]
+        [HttpPost("AddStoragesSp")]
         public async Task<Result> AddStoragesSp()
         {
-            return await _storageSpService.AddStoragesSp();
+            return await _storageSpService.AddStorages();
         }
         
-        [HttpPost]
-        [Route("AddStoragesEfCore")]
+        [HttpPost("AddStoragesEfCore")]
         public async Task<Result> AddStoragesEfCore()
         {
-            return await _storageEfCoreService.AddStoragesEf();
+            return await _storageEfCoreService.AddStorages();
+        }
+        
+        
+        [HttpPost("CreateOrUpdateSqlCommand")]
+        public async Task<Result> CreateOrUpdateSqlCommand(Storage storage)
+        {
+            return await _storageSqlCommandService.CreateOrUpdate(storage);
         }
     }
 }

@@ -23,37 +23,37 @@ namespace Api.Controllers
             _productEfCoreService = productEfCoreService;
         }
 
-        [HttpGet]
-        public async Task<IList<Product>> GetSp()
+        [HttpGet("ListSp")]
+        public async Task<IList<Product>> ListSp()
         {
             return await _productSpService.List();
         }
 
-        [HttpGet("GetConvertedList")]
+        [HttpGet("GetConvertedListSp")]
         public async Task<IList<Product>> GetConvertedListSp()
         {
             return await _productSpService.ConvertedList();
         }
 
-        [HttpGet("GetProductsEntityFrameWorkCore")]
-        public async Task<IList<Product>> GetProductsEf()
+        [HttpGet("ListEfCore")]
+        public async Task<IList<Product>> ListEfCore()
         {
             return await _productEfCoreService.ListProducts();
         }
 
-        [HttpPost]
+        [HttpPost("CreateSp")]
         public async Task<Result> CreateSp(Product product)
         {
-            return await _productSpService.CreateOrUpdateSp(product);
+            return await _productSpService.CreateOrUpdate(product);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateSp")]
         public async Task<Result> UpdateSp(Product product)
         {
-            return await _productSpService.CreateOrUpdateSp(product);
+            return await _productSpService.CreateOrUpdate(product);
         }
 
-        [HttpPost("ProductReport")]
+        [HttpPost("ProductReportSp")]
         public async Task<ResultList<Persistence.EFModels.Product>> ProductReportSp(ProductReportRequestModel product)
         {
             return await _productSpService.ProductReport(product);

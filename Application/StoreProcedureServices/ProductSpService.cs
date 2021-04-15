@@ -30,7 +30,7 @@ namespace Application.StoreProcedureServices
             return await _productStore.ConvertedList();
         }
         
-        public async Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product)
+        public async Task<Result> CreateOrUpdate(Persistence.EFModels.Product product)
         {
             _logger.Info("CreateOrUpdate");
             return await _productStore.CreateOrUpdate(product);
@@ -54,7 +54,7 @@ namespace Application.StoreProcedureServices
     {
         Task<IList<Product>> List();
         Task<IList<Product>> ConvertedList();
-        Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product);
+        Task<Result> CreateOrUpdate(Persistence.EFModels.Product product);
         Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel model);
     }
 }

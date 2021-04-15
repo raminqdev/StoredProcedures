@@ -23,7 +23,7 @@ namespace Application.StoreProcedureServices
             _context = context;
         }
 
-        public async Task<Result> AddStoragesSp()
+        public async Task<Result> AddStorages()
         {
             var storages = _seedService.GetStorageBulkData();
 
@@ -42,6 +42,6 @@ namespace Application.StoreProcedureServices
 
     public interface IStorageSpService
     {
-        Task<Result> AddStoragesSp();
+        Task<Result> AddStorages();
     }
 }

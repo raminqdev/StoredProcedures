@@ -21,7 +21,7 @@ namespace Application.EFCoreServices
         }
 
 
-        public async Task<Result> AddStoragesEf()
+        public async Task<Result> AddStorages()
         {
             var storages = _seedService.GetStorageBulkData();
 
@@ -47,6 +47,6 @@ namespace Application.EFCoreServices
 
     public interface IStorageEfCoreService
     {
-        Task<Result> AddStoragesEf();
+        Task<Result> AddStorages();
     }
 }
