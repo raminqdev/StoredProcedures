@@ -24,8 +24,8 @@ namespace Api.Controllers
             _storageSqlCommandService = storageSqlCommandService;
         }
 
-        [HttpPost("AddStoragesSp")]
-        public async Task<Result> AddStoragesSp()
+        [HttpPost("AddBulkStoragesSp")]
+        public async Task<Result> AddBulkStoragesSp()
         {
             return await _storageSpService.AddStorages();
         }

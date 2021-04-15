@@ -31,7 +31,7 @@ BEGIN
                 VALUES(@Id, @Name, @Phone, @City, @Address, @Enabled)
                 SELECT @Id
             END
-    
+            
         ELSE
             BEGIN
                 UPDATE [Storages]
@@ -43,7 +43,7 @@ BEGIN
                     [Enabled] = @Enabled
                 WHERE Id = @Id
             END
-        SET @Res = @@ROWCOUNT
+    SET @Res = @@ROWCOUNT
     COMMIT
 
     RETURN @Res

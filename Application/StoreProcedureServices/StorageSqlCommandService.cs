@@ -23,74 +23,51 @@ namespace Application.StoreProcedureServices
 
         public async Task<Result> CreateOrUpdate(Storage model)
         {
-            try
+            var command = new SqlCommand("dbo.spCreateOrUpdateStorage")
             {
-                //sql connection object
-                await using (SqlConnection conn = new SqlConnection(_appSettings.ConnectionString))
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@Id", SqlDbType = SqlDbType.UniqueIdentifier, Value = model.Id});
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = model.Name});
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@Phone", SqlDbType = SqlDbType.NVarChar, Value = model.Phone});
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@City", SqlDbType = SqlDbType.NVarChar, Value = model.City});
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@Address", SqlDbType = SqlDbType.NVarChar, Value = model.Address});
+            command.Parameters.Add(new SqlParameter
+                {ParameterName = "@Enabled", SqlDbType = SqlDbType.Bit, Value = model.Enabled});
+
+            var dataSet = new DataSet();
+            using (var connection = new SqlConnection(_appSettings.ConnectionString))
+            {
+                command.Connection = connection;
+                try
                 {
-                    //set stored procedure name
-                    string spName = @"dbo.[spCreateOrUpdateStorage]";
-
-                    //define the SqlCommand object
-                    SqlCommand cmd = new SqlCommand(spName, conn);
-
-                    //Set SqlParameter and add the parameter to the SqlCommand object
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@Id", SqlDbType = SqlDbType.UniqueIdentifier, Value = model.Id});
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@Name", SqlDbType = SqlDbType.NVarChar, Value = model.Name});
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@Phone", SqlDbType = SqlDbType.NVarChar, Value = model.Phone});
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@City", SqlDbType = SqlDbType.NVarChar, Value = model.City});
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@Address", SqlDbType = SqlDbType.NVarChar, Value = model.Address});
-                    cmd.Parameters.Add(new SqlParameter
-                        {ParameterName = "@Enabled", SqlDbType = SqlDbType.Bit, Value = model.Enabled});
-
-                    //open connection
-                    conn.Open();
-
-                    //set the SqlCommand type to stored procedure and execute
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    
-                    //execute the stored procedure                   
-                    cmd.ExecuteNonQuery();
-                    
-                    // //execute
-                    // SqlDataReader dr = await cmd.ExecuteReaderAsync();
-                    // Console.WriteLine(Environment.NewLine + "Retrieving data from database...");
-                    // Console.WriteLine("Retrieved records:");
-                    // //check if there are records
-                    // if (dr.HasRows)
-                    //     while (dr.Read())
-                    //     {
-                    //         var id = dr.GetGuid(0);
-                    //         var name = dr.GetString(1);
-                    //         var phone = dr.GetString(2);
-                    //         var city = dr.GetString(3);
-                    //         var address = dr.GetString(4);
-                    //         var enabled = dr.GetBoolean(5);
-                    //
-                    //         Console.WriteLine("{0},{1},{2},{3},{4},{5}", id.ToString(), name, phone, city, address,
-                    //             enabled);
-                    //     }
-                    // else Console.WriteLine("No data found.");
-                    //
-                    // //close data reader
-                    // dr.Close();
-
-                    //close connection
-                    conn.Close();
+                    await connection.OpenAsync();
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        do
+                        {
+                            using (var table = dataSet.Tables.Add())
+                            {
+                                table.Load(reader);
+                            }
+                        } while (!reader.IsClosed);
+                    }
                 }
-
-                return Result.Successful();
+                catch (Exception ex)
+                {
+                    _logger.Exception(ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex);
-                return Result.Failed("Exception");
-            }
+            return Result.Successful();
         }
     }
 
