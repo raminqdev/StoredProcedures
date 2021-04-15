@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.StoreProcedureServices.Product;
+using Application.EFCoreServices;
+using Application.Models;
+using Application.StoreProcedureServices;
 using AspNetCore.Lib.Models;
 using Persistence.EFModels;
-using Persistence.Stores;
 
 namespace Api.Controllers
 {
@@ -12,50 +13,50 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductStore _productStore;
-        private readonly IProductService _productService;
-        
-        public ProductController(IProductStore productStore,IProductService productService)
+        private readonly IProductSpService _productSpService;
+        private readonly IProductEfCoreService _productEfCoreService;
+
+        public ProductController(IProductSpService productSpService,
+            IProductEfCoreService productEfCoreService)
         {
-            _productStore = productStore;
-            _productService = productService;
+            _productSpService = productSpService;
+            _productEfCoreService = productEfCoreService;
         }
 
         [HttpGet]
-        public async Task<IList<Product>> Get()
+        public async Task<IList<Product>> GetSp()
         {
-            return await _productStore.List();
+            return await _productSpService.List();
         }
 
         [HttpGet("GetConvertedList")]
-        public async Task<IList<Product>> GetConvertedList()
+        public async Task<IList<Product>> GetConvertedListSp()
         {
-            return await _productStore.ConvertedList();
+            return await _productSpService.ConvertedList();
         }
 
         [HttpGet("GetProductsEntityFrameWorkCore")]
-        public async Task<IList<Product>> GetProductsEntityFrameWorkCore()
+        public async Task<IList<Product>> GetProductsEf()
         {
-            return await _productService.ListProductsEfCore();
+            return await _productEfCoreService.ListProducts();
         }
-        
+
         [HttpPost]
-        public async Task<Result> Create(Product product)
+        public async Task<Result> CreateSp(Product product)
         {
-            return await _productService.CreateOrUpdateSp(product);
+            return await _productSpService.CreateOrUpdateSp(product);
         }
-        
+
         [HttpPut]
-        public async Task<Result> Update(Product product)
+        public async Task<Result> UpdateSp(Product product)
         {
-            return await _productService.CreateOrUpdateSp(product);
+            return await _productSpService.CreateOrUpdateSp(product);
         }
-        
+
         [HttpPost("ProductReport")]
-        public async Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel product)
+        public async Task<ResultList<Persistence.EFModels.Product>> ProductReportSp(ProductReportRequestModel product)
         {
-            return await _productService.ProductReport(product);
+            return await _productSpService.ProductReport(product);
         }
-        
     }
 }

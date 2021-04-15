@@ -135,7 +135,7 @@ namespace Persistence.Stores
             var count = res.Count;
             return new ResultList<Product>
             {
-                Items = count > 0 ? res.GetRange(0, 1) : null,
+                Items = count > 0 ? res.GetRange(0, 2) : null,
                 TotalCount = count
             };
         }

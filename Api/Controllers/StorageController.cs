@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Application.StoreProcedureServices.Storage;
+using Application.EFCoreServices;
+using Application.StoreProcedureServices;
 using AspNetCore.Lib.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,25 +10,27 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class StorageController : ControllerBase
     {
-        private readonly IStorageService _storageService;
+        private readonly IStorageSpService _storageSpService;
+        private readonly IStorageEfCoreService _storageEfCoreService;
 
-        public StorageController(IStorageService storageService)
+        public StorageController(IStorageSpService storageSpService,IStorageEfCoreService storageEfCoreService)
         {
-            _storageService = storageService;
+            _storageSpService = storageSpService;
+            _storageEfCoreService = storageEfCoreService;
         }
 
         [HttpPost]
         [Route("AddStoragesSp")]
         public async Task<Result> AddStoragesSp()
         {
-            return await _storageService.AddStoragesSp();
+            return await _storageSpService.AddStoragesSp();
         }
         
         [HttpPost]
         [Route("AddStoragesEfCore")]
         public async Task<Result> AddStoragesEfCore()
         {
-            return await _storageService.AddStoragesEfCore();
+            return await _storageEfCoreService.AddStoragesEf();
         }
     }
 }

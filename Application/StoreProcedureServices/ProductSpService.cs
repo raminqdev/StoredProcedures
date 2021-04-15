@@ -1,31 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.Models;
 using AspNetCore.Lib.Models;
 using AspNetCore.Lib.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Persistence.EFModels;
 using Persistence.Stores;
 
-namespace Application.StoreProcedureServices.Product
+namespace Application.StoreProcedureServices
 {
-    public class ProductService : IProductService
+    public class ProductSpService : IProductSpService
     {
-        private readonly AppDbContext _context;
         private readonly IProductStore _productStore;
         private readonly ILogger _logger;
 
-        public ProductService(AppDbContext context, IProductStore productStore, ILogger logger)
+        public ProductSpService( IProductStore productStore, ILogger logger)
         {
-            _context = context;
             _productStore = productStore;
             _logger = logger;
         }
 
-        public async Task<IList<Persistence.EFModels.Product>> ListProductsEfCore()
+        
+        public async Task<IList<Product>> List()
         {
-            return await _context.Products.ToListAsync();
+            return await _productStore.List();
         }
-
+        
+        public async Task<IList<Product>> ConvertedList()
+        {
+            return await _productStore.ConvertedList();
+        }
+        
         public async Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product)
         {
             _logger.Info("CreateOrUpdate");
@@ -46,12 +50,11 @@ namespace Application.StoreProcedureServices.Product
         
     }
 
-    public interface IProductService
+    public interface IProductSpService
     {
-        Task<IList<Persistence.EFModels.Product>> ListProductsEfCore();
-
+        Task<IList<Product>> List();
+        Task<IList<Product>> ConvertedList();
         Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product);
-
         Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel model);
     }
 }

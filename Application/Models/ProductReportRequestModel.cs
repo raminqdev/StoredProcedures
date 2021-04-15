@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.StoreProcedureServices.Product
+namespace Application.Models
 {
     public class ProductReportRequestModel
     {
