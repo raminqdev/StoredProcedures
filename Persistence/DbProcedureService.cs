@@ -1,7 +1,9 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Persistence.Generator.Helpers;
+using AspNetCore.Lib;
 using AspNetCore.Lib.Attributes;
 using AspNetCore.Lib.Enums;
 using Microsoft.Data.SqlClient;
@@ -125,6 +127,29 @@ namespace Persistence
 
         public async Task<ProcedureResult> GetAllStoragesAsync()
             => await ExecuteAsync(GetAllStorages_Command());
+        #endregion
+
+        #region GetProductReport
+        public SqlCommand GetProductReport_Command(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId)
+        {
+            var cmd = new SqlCommand("dbo.spGetProductReport");
+            cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("MaxQuantity", maxQuantity == null ? DBNull.Value : (object)maxQuantity);
+			cmd.Parameters.AddWithValue("MinQuantity", minQuantity == null ? DBNull.Value : (object)minQuantity);
+			cmd.Parameters.AddWithValue("Enabled", enabled == null ? DBNull.Value : (object)enabled);
+			cmd.Parameters.AddWithValue("MaxPrice", maxPrice == null ? DBNull.Value : (object)maxPrice);
+			cmd.Parameters.AddWithValue("MinPrice", minPrice == null ? DBNull.Value : (object)minPrice);
+			cmd.Parameters.AddWithValue("StorageId", storageId == null ? DBNull.Value : (object)storageId);
+			cmd.Parameters.AddWithValue("SupplierId", supplierId == null ? DBNull.Value : (object)supplierId);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "ReturnValue", Direction = ParameterDirection.ReturnValue, Size = int.MaxValue, SqlDbType = SqlDbType.Int });
+            return cmd;
+        }
+
+        public ProcedureResult GetProductReport(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId)
+            => Execute(GetProductReport_Command(maxQuantity, minQuantity, enabled, maxPrice, minPrice, storageId, supplierId));
+
+        public async Task<ProcedureResult> GetProductReportAsync(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId)
+            => await ExecuteAsync(GetProductReport_Command(maxQuantity, minQuantity, enabled, maxPrice, minPrice, storageId, supplierId));
         #endregion
     }
 }

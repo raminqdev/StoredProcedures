@@ -25,28 +25,28 @@ namespace Persistence.Stores
                 var res = await _dbProcedureService.CreateOrUpdateProductAsync(
                     id: product.Id,
                     name: product.Name,
-                    code:product.Code,
-                    quantity:product.Quantity,
-                    unitePrice:product.UnitePrice,
-                    description:product.Description,
+                    code: product.Code,
+                    quantity: product.Quantity,
+                    unitePrice: product.UnitePrice,
+                    description: product.Description,
                     enabled: product.Enabled,
-                    storageId:product.StorageId,
-                    supplierId:product.SupplierId);
+                    storageId: product.StorageId,
+                    supplierId: product.SupplierId);
 
                 return res.Succeed
                     ? Result.Successful()
-                    : Result.Failed(Error.WithData(1000,new string[]{""}));
+                    : Result.Failed(Error.WithData(1000, new string[] {""}));
             }
             catch (SqlException ex)
             {
-                return Result.Failed(Error.WithData(1000,new string[]{"Sql Exception"}));
+                return Result.Failed(Error.WithData(1000, new string[] {"Sql Exception"}));
             }
             catch (Exception ex)
             {
-                return Result.Failed(Error.WithData(1000,new string[]{"Exception"}));
+                return Result.Failed(Error.WithData(1000, new string[] {"Exception"}));
             }
         }
-        
+
         public async Task<IList<Product>> List()
         {
             var procedureResult = await _dbProcedureService.GetAllProductsAsync();
@@ -74,15 +74,83 @@ namespace Persistence.Stores
             return res;
         }
 
+        public async Task<ResultList<Product>> ProductReport(int? maxQuantity, int? minQuantity,
+            bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId)
+        {
+            var result = await _dbProcedureService.GetProductReportAsync(
+                maxQuantity: maxQuantity,
+                minQuantity: minQuantity,
+                enabled: enabled,
+                maxPrice: maxPrice,
+                minPrice: minPrice,
+                storageId: storageId,
+                supplierId: supplierId
+            );
+
+            var res = result.DataSet.Tables[0].AsEnumerable()
+                .GroupBy(k => new Guid(k["Id"].ToString()!), g => g)
+                .Select(g =>
+                    {
+                        var STOID = g.First()["STOId"];
+                        var SUPID = g.First()["SUPId"];
+                        return new Product
+                        {
+                            Id = g.Key,
+                            Code = g.First()["Code"].ToString(),
+                            Name = g.First()["Name"].ToString(),
+                            Quantity = Convert.ToInt16(g.First()["Quantity"].ToString()),
+                            UnitePrice = Convert.ToDecimal(g.First()["UnitePrice"].ToString()),
+                            Description = g.First()["Description"].ToString(),
+                            Enabled = Convert.ToBoolean(g.First()["Enabled"].ToString()),
+                            StorageId = STOID == DBNull.Value
+                                ? null
+                                : (Guid?) new Guid(STOID.ToString()!),
+                            Storage = STOID == DBNull.Value
+                                ? null
+                                : new Storage
+                                {
+                                    Id = new Guid(STOID.ToString()!),
+                                    Name = g.First()["STOName"].ToString(),
+                                    Phone = g.First()["STOPhone"].ToString(),
+                                    Enabled = Convert.ToBoolean(g.First()["STOEnabled"].ToString())
+                                },
+                            SupplierId = SUPID == DBNull.Value
+                                ? null
+                                : (Guid?) new Guid(SUPID.ToString()!),
+                            Supplier = SUPID == DBNull.Value
+                                ? null
+                                : new Supplier
+                                {
+                                    Id = new Guid(SUPID.ToString()!),
+                                    CompanyName = g.First()["CompanyName"].ToString(),
+                                    ContactName = g.First()["ContactName"].ToString(),
+                                    Phone = g.First()["SUPPhone"].ToString(),
+                                    Address = g.First()["Address"].ToString(),
+                                    Enabled = Convert.ToBoolean(g.First()["SUPEnabled"].ToString())
+                                }
+                        };
+                    }
+                ).OrderByDescending(p => p.UnitePrice).ToList();
+
+            var count = res.Count;
+            return new ResultList<Product>
+            {
+                Items = count > 0 ? res.GetRange(0, 1) : null,
+                TotalCount = count
+            };
+        }
     }
 
 
     public interface IProductStore
     {
         Task<Result> CreateOrUpdate(Product product);
-        
+
         Task<IList<Product>> List();
 
         Task<IList<Product>> ConvertedList();
+
+        Task<ResultList<Product>> ProductReport(int? maxQuantity, int? minQuantity,
+            bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId);
     }
 }

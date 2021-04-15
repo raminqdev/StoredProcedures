@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <Folder Include="DapperServices" />
+      <Folder Include="EFCoreServices" />
     </ItemGroup>
 
     <ItemGroup>

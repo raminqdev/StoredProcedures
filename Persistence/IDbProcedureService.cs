@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Persistence.Generator.Helpers;
@@ -36,6 +38,12 @@ namespace Persistence
         SqlCommand GetAllStorages_Command();
         ProcedureResult GetAllStorages();
         Task<ProcedureResult> GetAllStoragesAsync();
+        #endregion
+
+        #region GetProductReport
+        SqlCommand GetProductReport_Command(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId);
+        ProcedureResult GetProductReport(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId);
+        Task<ProcedureResult> GetProductReportAsync(int? maxQuantity, int? minQuantity, bool? enabled, decimal? maxPrice, decimal? minPrice, Guid? storageId, Guid? supplierId);
         #endregion
     }
 }

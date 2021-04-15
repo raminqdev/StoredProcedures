@@ -31,7 +31,18 @@ namespace Application.StoreProcedureServices.Product
             _logger.Info("CreateOrUpdate");
             return await _productStore.CreateOrUpdate(product);
         }
-        
+
+        public async Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel model)
+        {
+            _logger.Info("ProductReport Started");
+            
+            var result = await _productStore.ProductReport(model.MaxQuantity,  model.MinQuantity,
+                model.Enabled, model.MaxPrice, model.MinPrice, model.StorageId, model.SupplierId);
+            
+            _logger.Info("ProductReport Finished");
+
+            return result;
+        }
         
     }
 
@@ -40,5 +51,7 @@ namespace Application.StoreProcedureServices.Product
         Task<IList<Persistence.EFModels.Product>> ListProductsEfCore();
 
         Task<Result> CreateOrUpdateSp(Persistence.EFModels.Product product);
+
+        Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel model);
     }
 }

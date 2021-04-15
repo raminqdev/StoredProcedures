@@ -1,4 +1,6 @@
-﻿namespace Application.StoreProcedureServices.Product
+﻿using System;
+
+namespace Application.StoreProcedureServices.Product
 {
     public class ProductReportRequestModel
     {
@@ -7,8 +9,7 @@
         public bool? Enabled { get; set; }
         public decimal? MaxPrice { get; set; }
         public decimal? MinPrice { get; set; }
-        public int? StorageId { get; set; }
-        public int? SupplierId { get; set; }
-        public int? CategoryId { get; set; }
+        public Guid? StorageId { get; set; }
+        public Guid? SupplierId { get; set; }
     }
 }

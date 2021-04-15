@@ -51,5 +51,11 @@ namespace Api.Controllers
             return await _productService.CreateOrUpdateSp(product);
         }
         
+        [HttpPost("ProductReport")]
+        public async Task<ResultList<Persistence.EFModels.Product>> ProductReport(ProductReportRequestModel product)
+        {
+            return await _productService.ProductReport(product);
+        }
+        
     }
 }
