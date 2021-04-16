@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.EFCoreServices;
 using Application.StoreProcedureServices;
 using AspNetCore.Lib.Models;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.EFModels;
+using Persistence.Generator.Helpers;
 
 namespace Api.Controllers
 {
@@ -38,7 +40,7 @@ namespace Api.Controllers
         
         
         [HttpPost("CreateOrUpdateSqlCommand")]
-        public async Task<Result> CreateOrUpdateSqlCommand(Storage storage)
+        public async Task<Result<Guid>> CreateOrUpdateSqlCommand(Storage storage)
         {
             return await _storageSqlCommandService.CreateOrUpdate(storage);
         }

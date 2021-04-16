@@ -43,7 +43,7 @@ BEGIN
                     [Enabled] = @Enabled
                 WHERE Id = @Id
             END
-    SET @Res = @@ROWCOUNT
+        SET @Res = @@ROWCOUNT
     COMMIT
 
     RETURN @Res

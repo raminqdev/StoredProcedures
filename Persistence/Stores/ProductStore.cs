@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCore.Lib.Models;
+using AspNetCore.Lib.Services.Interfaces;
 using Microsoft.Data.SqlClient;
 using Persistence.EFModels;
 using Persistence.ProcedureServices;
@@ -13,10 +14,12 @@ namespace Persistence.Stores
     public class ProductStore : IProductStore
     {
         private readonly IDbProcedureService _dbProcedureService;
+        private readonly ILogger _logger;
 
-        public ProductStore(IDbProcedureService dbProcedureService)
+        public ProductStore(IDbProcedureService dbProcedureService, ILogger logger)
         {
-            this._dbProcedureService = dbProcedureService;
+            _logger = logger;
+            _dbProcedureService = dbProcedureService;
         }
 
         public async Task<Result> CreateOrUpdate(Product product)
@@ -36,15 +39,17 @@ namespace Persistence.Stores
 
                 return res.Succeed
                     ? Result.Successful()
-                    : Result.Failed(Error.WithData(1000, new string[] {""}));
+                    : Result.Failed(Error.WithData(1000, new string[] { "" }));
             }
             catch (SqlException ex)
             {
-                return Result.Failed(Error.WithData(1000, new string[] {"Sql Exception"}));
+                _logger.Exception(ex, data: product);
+                return Result.Failed(Error.WithData(1000, new string[] { "Sql Exception" }));
             }
             catch (Exception ex)
             {
-                return Result.Failed(Error.WithData(1000, new string[] {"Exception"}));
+                _logger.Exception(ex, data: product);
+                return Result.Failed(Error.WithData(1000, new string[] { "Exception" }));
             }
         }
 
@@ -89,45 +94,44 @@ namespace Persistence.Stores
             );
 
             var res = result.DataSet.Tables[0].AsEnumerable()
-                .GroupBy(k => new Guid(k["Id"].ToString()!), g => g)
                 .Select(g =>
                     {
-                        var STOID = g.First()["STOId"];
-                        var SUPID = g.First()["SUPId"];
+                        var STOID = g["STOId"];
+                        var SUPID = g["SUPId"];
                         return new Product
                         {
-                            Id = g.Key,
-                            Code = g.First()["Code"].ToString(),
-                            Name = g.First()["Name"].ToString(),
-                            Quantity = Convert.ToInt16(g.First()["Quantity"].ToString()),
-                            UnitePrice = Convert.ToDecimal(g.First()["UnitePrice"].ToString()),
-                            Description = g.First()["Description"].ToString(),
-                            Enabled = Convert.ToBoolean(g.First()["Enabled"].ToString()),
+                            Id = new Guid(g["Id"].ToString()),
+                            Code = g["Code"].ToString(),
+                            Name = g["Name"].ToString(),
+                            Quantity = Convert.ToInt16(g["Quantity"].ToString()),
+                            UnitePrice = Convert.ToDecimal(g["UnitePrice"].ToString()),
+                            Description = g["Description"].ToString(),
+                            Enabled = Convert.ToBoolean(g["Enabled"].ToString()),
                             StorageId = STOID == DBNull.Value
                                 ? null
-                                : (Guid?) new Guid(STOID.ToString()!),
+                                : (Guid?)new Guid(STOID.ToString()!),
                             Storage = STOID == DBNull.Value
                                 ? null
                                 : new Storage
                                 {
                                     Id = new Guid(STOID.ToString()!),
-                                    Name = g.First()["STOName"].ToString(),
-                                    Phone = g.First()["STOPhone"].ToString(),
-                                    Enabled = Convert.ToBoolean(g.First()["STOEnabled"].ToString())
+                                    Name = g["STOName"].ToString(),
+                                    Phone = g["STOPhone"].ToString(),
+                                    Enabled = Convert.ToBoolean(g["STOEnabled"].ToString())
                                 },
                             SupplierId = SUPID == DBNull.Value
                                 ? null
-                                : (Guid?) new Guid(SUPID.ToString()!),
+                                : (Guid?)new Guid(SUPID.ToString()!),
                             Supplier = SUPID == DBNull.Value
                                 ? null
                                 : new Supplier
                                 {
                                     Id = new Guid(SUPID.ToString()!),
-                                    CompanyName = g.First()["CompanyName"].ToString(),
-                                    ContactName = g.First()["ContactName"].ToString(),
-                                    Phone = g.First()["SUPPhone"].ToString(),
-                                    Address = g.First()["Address"].ToString(),
-                                    Enabled = Convert.ToBoolean(g.First()["SUPEnabled"].ToString())
+                                    CompanyName = g["CompanyName"].ToString(),
+                                    ContactName = g["ContactName"].ToString(),
+                                    Phone = g["SUPPhone"].ToString(),
+                                    Address = g["Address"].ToString(),
+                                    Enabled = Convert.ToBoolean(g["SUPEnabled"].ToString())
                                 }
                         };
                     }
